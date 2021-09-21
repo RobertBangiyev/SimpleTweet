@@ -67,14 +67,10 @@ public class Tweet {
                 return "just now";
             } else if (diff < 2 * MINUTE_MILLIS) {
                 return "a minute ago";
-            } else if (diff < 50 * MINUTE_MILLIS) {
+            } else if (diff < 60 * MINUTE_MILLIS) {
                 return diff / MINUTE_MILLIS + "m";
-            } else if (diff < 90 * MINUTE_MILLIS) {
-                return "an hour ago";
             } else if (diff < 24 * HOUR_MILLIS) {
                 return diff / HOUR_MILLIS + "h";
-            } else if (diff < 48 * HOUR_MILLIS) {
-                return "yesterday";
             } else {
                 return diff / DAY_MILLIS + "d";
             }
@@ -87,7 +83,7 @@ public class Tweet {
     }
 
     public static String timeFormat(String rawTime) {
-        String amPm = "";
+        String amPm;
         int properHour;
         if(Integer.parseInt(rawTime.substring(11, 13)) < 13) {
             properHour = Integer.parseInt(rawTime.substring(11, 13));
@@ -102,6 +98,6 @@ public class Tweet {
             properHour = Integer.parseInt(rawTime.substring(11, 13)) - 16;
             amPm = "PM";
         }
-        return Integer.toString(properHour) + ":" + rawTime.substring(14,16) + " " + amPm + " ⋅ " + rawTime.substring(8,10) + " " + rawTime.substring(4,7) + " " + rawTime.substring(rawTime.length()-2);
+        return properHour + ":" + rawTime.substring(14,16) + " " + amPm + " ⋅ " + rawTime.substring(8,10) + " " + rawTime.substring(4,7) + " " + rawTime.substring(rawTime.length()-2);
     }
 }
